@@ -106,7 +106,15 @@ export default function VersesApp() {
               Lock screen wallpapers for poems
             </span>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
+            <a
+              href="https://github.com/itsbdell/verses-app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs text-[#8C7E6E] hover:text-[#2C2520] transition-colors"
+            >
+              GitHub
+            </a>
             <a
               href="https://briandell.xyz"
               target="_blank"
