@@ -134,22 +134,20 @@ export default function VersesApp() {
 
             {/* Custom poem input */}
             <div className="space-y-2">
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  placeholder="Title"
-                  value={customTitle}
-                  onChange={(e) => handleCustomMetaChange(e.target.value, customAuthor)}
-                  className="flex-1 px-3 py-1.5 rounded-lg bg-[#F0EBE4] border border-[#D6CFC5] text-sm text-[#2C2520] placeholder-[#B5AA9A] focus:outline-none focus:border-[#8C7E6E]"
-                />
-                <input
-                  type="text"
-                  placeholder="Author"
-                  value={customAuthor}
-                  onChange={(e) => handleCustomMetaChange(customTitle, e.target.value)}
-                  className="flex-1 px-3 py-1.5 rounded-lg bg-[#F0EBE4] border border-[#D6CFC5] text-sm text-[#2C2520] placeholder-[#B5AA9A] focus:outline-none focus:border-[#8C7E6E]"
-                />
-              </div>
+              <input
+                type="text"
+                placeholder="Title"
+                value={customTitle}
+                onChange={(e) => handleCustomMetaChange(e.target.value, customAuthor)}
+                className="w-full px-3 py-2 rounded-lg bg-[#F0EBE4] border border-[#D6CFC5] text-sm text-[#2C2520] placeholder-[#B5AA9A] focus:outline-none focus:border-[#8C7E6E]"
+              />
+              <input
+                type="text"
+                placeholder="Author"
+                value={customAuthor}
+                onChange={(e) => handleCustomMetaChange(customTitle, e.target.value)}
+                className="w-full px-3 py-2 rounded-lg bg-[#F0EBE4] border border-[#D6CFC5] text-sm text-[#2C2520] placeholder-[#B5AA9A] focus:outline-none focus:border-[#8C7E6E]"
+              />
               <textarea
                 placeholder="Paste poem text here..."
                 value={customText}
