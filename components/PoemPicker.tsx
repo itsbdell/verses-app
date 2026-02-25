@@ -1,81 +1,56 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
 import { Poem } from "@/lib/types";
 import { poems } from "@/lib/poems";
 
 interface PoemPickerProps {
-  selected: Poem;
+  selected: Poem | null;
   onSelect: (poem: Poem) => void;
 }
 
 export default function PoemPicker({ selected, onSelect }: PoemPickerProps) {
-  const [search, setSearch] = useState("");
-
-  const filtered = useMemo(() => {
-    if (!search.trim()) return poems;
-    const q = search.toLowerCase();
-    return poems.filter(
-      (p) =>
-        p.title.toLowerCase().includes(q) ||
-        p.author.toLowerCase().includes(q) ||
-        p.tags.some((t) => t.includes(q))
-    );
-  }, [search]);
-
-  // Group by author
   const grouped = useMemo(() => {
     const map = new Map<string, Poem[]>();
-    for (const poem of filtered) {
+    for (const poem of poems) {
       const existing = map.get(poem.author) || [];
       existing.push(poem);
       map.set(poem.author, existing);
     }
     return map;
-  }, [filtered]);
+  }, []);
+
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const poem = poems.find((p) => p.id === e.target.value);
+    if (poem) onSelect(poem);
+  };
 
   return (
     <div>
-      <label className="block text-sm font-medium text-neutral-400 mb-2 tracking-wide uppercase">
+      <label className="block text-sm font-medium text-[#8C7E6E] mb-2 tracking-wide uppercase">
         Poem
       </label>
-      <input
-        type="text"
-        placeholder="Search poems or authors..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-white/20 mb-2"
-      />
-      <div className="max-h-80 overflow-y-auto space-y-3 pr-1 scrollbar-thin">
+      <select
+        value={selected?.id ?? ""}
+        onChange={handleChange}
+        className="w-full px-3 py-2 rounded-lg bg-[#F0EBE4] border border-[#D6CFC5] text-sm text-[#2C2520] focus:outline-none focus:border-[#8C7E6E] appearance-none cursor-pointer"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238C7E6E' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`,
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "right 12px center",
+        }}
+      >
+        <option value="" disabled>Choose a poem...</option>
         {Array.from(grouped.entries()).map(([author, authorPoems]) => (
-          <div key={author}>
-            <p className="text-xs text-neutral-500 mb-1">{author}</p>
+          <optgroup key={author} label={author}>
             {authorPoems.map((poem) => (
-              <button
-                key={poem.id}
-                onClick={() => onSelect(poem)}
-                className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors mb-0.5 ${
-                  selected.id === poem.id
-                    ? "bg-white/10 text-white"
-                    : "text-neutral-400 hover:bg-white/5 hover:text-neutral-300"
-                }`}
-              >
-                <span className="italic">{poem.title}</span>
-                {poem.year && (
-                  <span className="text-xs text-neutral-500 ml-2">
-                    {poem.year}
-                  </span>
-                )}
-              </button>
+              <option key={poem.id} value={poem.id}>
+                {poem.title}{poem.year ? ` (${poem.year})` : ""}
+              </option>
             ))}
-          </div>
+          </optgroup>
         ))}
-        {filtered.length === 0 && (
-          <p className="text-sm text-neutral-500 text-center py-4">
-            No poems found
-          </p>
-        )}
-      </div>
+      </select>
     </div>
   );
 }
