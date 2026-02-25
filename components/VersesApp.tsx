@@ -91,27 +91,44 @@ export default function VersesApp() {
     : 0;
 
   return (
-    <div className="h-screen flex flex-col overflow-hidden bg-[#FAF8F5] text-[#2C2520]">
+    <div className="min-h-screen flex flex-col md:h-screen md:overflow-hidden bg-[#FAF8F5] text-[#2C2520]">
       {/* Header */}
       <header className="border-b border-[#E8E2DA] px-6 py-3 flex-shrink-0">
-        <div className="max-w-4xl mx-auto flex items-baseline gap-3">
-          <h1
-            className="text-lg tracking-widest uppercase"
-            style={{ fontFamily: '"Spectral", Georgia, serif' }}
-          >
-            Verses
-          </h1>
-          <span className="text-xs text-[#8C7E6E]">
-            Lock screen wallpapers for poems
-          </span>
+        <div className="max-w-4xl mx-auto flex items-baseline justify-between gap-3">
+          <div className="flex items-baseline gap-3">
+            <h1
+              className="text-lg tracking-widest uppercase"
+              style={{ fontFamily: '"Spectral", Georgia, serif' }}
+            >
+              Verses
+            </h1>
+            <span className="text-xs text-[#8C7E6E] hidden sm:inline">
+              Lock screen wallpapers for poems
+            </span>
+          </div>
+          <div className="flex items-center gap-2">
+            <a
+              href="https://briandell.xyz"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs text-[#8C7E6E] hover:text-[#2C2520] transition-colors"
+            >
+              briandell.xyz
+            </a>
+            <span
+              className="text-[10px] text-[#8C7E6E] tracking-wider border border-[rgba(77,82,234,0.2)] rounded px-1.5 py-0.5"
+            >
+              AwAI
+            </span>
+          </div>
         </div>
       </header>
 
       {/* Main layout */}
-      <main className="flex-1 overflow-hidden max-w-4xl mx-auto w-full px-6 py-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-full">
+      <main className="flex-1 overflow-y-auto md:overflow-hidden max-w-4xl mx-auto w-full px-6 py-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:h-full">
           {/* Left panel — controls */}
-          <div className="rounded-2xl border border-[#E8E2DA] bg-white/50 p-6 space-y-4 overflow-y-auto">
+          <div className="rounded-2xl border border-[#E8E2DA] bg-white/50 p-6 space-y-4 md:overflow-y-auto">
             <DevicePicker
               selected={selectedDevice}
               onSelect={setSelectedDevice}

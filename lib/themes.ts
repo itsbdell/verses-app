@@ -156,6 +156,37 @@ export const themes: ThemePreset[] = [
     authorColor: "rgba(163, 163, 163, 0.75)",
     footerColor: "rgba(163, 163, 163, 0.45)",
   },
+  {
+    id: "parchment",
+    name: "Parchment",
+    bgGradient:
+      "linear-gradient(165deg, #f5f0e8 0%, #efe8dc 15%, #e8e0d0 35%, #f2ead8 50%, #ebe3d3 65%, #f0e8da 85%, #f6f1e9 100%)",
+    glows: [
+      {
+        color: "rgba(205, 180, 145, 0.12)",
+        cx: "25%",
+        cy: "20%",
+        radius: "55%",
+      },
+      {
+        color: "rgba(190, 160, 120, 0.08)",
+        cx: "75%",
+        cy: "35%",
+        radius: "45%",
+      },
+      {
+        color: "rgba(175, 150, 110, 0.06)",
+        cx: "50%",
+        cy: "80%",
+        radius: "50%",
+      },
+    ],
+    noiseOpacity: 0.05,
+    titleColor: "rgba(60, 45, 30, 0.92)",
+    textColor: "rgba(55, 40, 25, 0.88)",
+    authorColor: "rgba(120, 95, 65, 0.75)",
+    footerColor: "rgba(120, 95, 65, 0.4)",
+  },
 ];
 
 export const defaultTheme = themes[0]; // Midnight

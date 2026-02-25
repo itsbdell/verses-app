@@ -3,7 +3,7 @@
 import { Poem, DevicePreset, ThemePreset } from "@/lib/types";
 
 interface LockScreenPreviewProps {
-  poem: Poem;
+  poem?: Poem;
   device: DevicePreset;
   theme: ThemePreset;
   scale?: number;
@@ -30,8 +30,8 @@ export default function LockScreenPreview({
   scale,
   id,
 }: LockScreenPreviewProps) {
-  const stanzas = parseStanzas(poem.text);
-  const fontScale = getFontScale(poem);
+  const stanzas = poem ? parseStanzas(poem.text) : [];
+  const fontScale = poem ? getFontScale(poem) : 1;
 
   const baseTitleSize = 58;
   const baseLineSize = 44;
@@ -130,95 +130,101 @@ export default function LockScreenPreview({
           zIndex: 1,
         }}
       >
-        <div style={{ textAlign: "left" }}>
-          {/* Title */}
-          <h1
-            style={{
-              fontFamily: '"Cormorant Garamond", Georgia, serif',
-              fontSize: titleSize,
-              fontWeight: 300,
-              fontStyle: "italic",
-              color: theme.titleColor,
-              letterSpacing: "0.08em",
-              marginBottom: 20,
-              margin: 0,
-              marginTop: 0,
-              padding: 0,
-            }}
-          >
-            {poem.title}
-          </h1>
+        {poem && (
+          <>
+            <div style={{ textAlign: "left" }}>
+              {/* Title */}
+              <h1
+                style={{
+                  fontFamily: '"Cormorant Garamond", Georgia, serif',
+                  fontSize: titleSize,
+                  fontWeight: 300,
+                  fontStyle: "italic",
+                  color: theme.titleColor,
+                  letterSpacing: "0.08em",
+                  marginBottom: 20,
+                  margin: 0,
+                  marginTop: 0,
+                  padding: 0,
+                }}
+              >
+                {poem.title}
+              </h1>
 
-          {/* Author */}
-          <p
-            style={{
-              fontFamily: '"Spectral", Georgia, serif',
-              fontSize: authorSize,
-              fontWeight: 300,
-              color: theme.authorColor,
-              letterSpacing: "0.25em",
-              textTransform: "uppercase",
-              marginBottom: 90 * fontScale,
-              margin: 0,
-              marginTop: 0,
-              padding: 0,
-            }}
-          >
-            {poem.author}
-            {poem.year ? `, ${poem.year}` : ""}
-          </p>
+              {/* Author */}
+              <p
+                style={{
+                  fontFamily: '"Spectral", Georgia, serif',
+                  fontSize: authorSize,
+                  fontWeight: 300,
+                  color: theme.authorColor,
+                  letterSpacing: "0.25em",
+                  textTransform: "uppercase",
+                  marginBottom: 90 * fontScale,
+                  margin: 0,
+                  marginTop: 0,
+                  padding: 0,
+                }}
+              >
+                {poem.author}
+                {poem.year ? `, ${poem.year}` : ""}
+              </p>
 
-          {/* Spacer between author and poem */}
-          <div style={{ height: 90 * fontScale }} />
+              {/* Spacer between author and poem */}
+              <div style={{ height: 90 * fontScale }} />
 
-          {/* Stanzas */}
-          {stanzas.map((lines, si) => (
-            <div
-              key={si}
-              style={{
-                marginBottom: si < stanzas.length - 1 ? stanzaMargin : 0,
-              }}
-            >
-              {lines.map((line, li) => (
-                <p
-                  key={li}
+              {/* Stanzas */}
+              {stanzas.map((lines, si) => (
+                <div
+                  key={si}
                   style={{
-                    fontFamily: '"Cormorant Garamond", Georgia, serif',
-                    fontSize: lineSize,
-                    fontWeight: 400,
-                    color: theme.textColor,
-                    lineHeight: 1.75,
-                    letterSpacing: "0.02em",
-                    margin: 0,
-                    padding: 0,
+                    marginBottom:
+                      si < stanzas.length - 1 ? stanzaMargin : 0,
                   }}
                 >
-                  {line}
-                </p>
+                  {lines.map((line, li) => (
+                    <p
+                      key={li}
+                      style={{
+                        fontFamily:
+                          '"Cormorant Garamond", Georgia, serif',
+                        fontSize: lineSize,
+                        fontWeight: 400,
+                        color: theme.textColor,
+                        lineHeight: 1.75,
+                        letterSpacing: "0.02em",
+                        margin: 0,
+                        padding: 0,
+                      }}
+                    >
+                      {line}
+                    </p>
+                  ))}
+                </div>
               ))}
             </div>
-          ))}
-        </div>
 
-        {/* Footer */}
-        <p
-          style={{
-            position: "absolute",
-            bottom: 120,
-            left: 0,
-            right: 0,
-            textAlign: "center",
-            fontFamily: '"Spectral", Georgia, serif',
-            fontSize: footerSize,
-            fontWeight: 300,
-            color: theme.footerColor,
-            letterSpacing: "0.12em",
-            margin: 0,
-            padding: 0,
-          }}
-        >
-          Verses
-        </p>
+            {/* Footer */}
+            <p
+              style={{
+                position: "absolute",
+                bottom: 120,
+                left: 0,
+                right: 0,
+                textAlign: "center",
+                fontFamily: '"Spectral", Georgia, serif',
+                fontSize: footerSize,
+                fontWeight: 300,
+                color: theme.footerColor,
+                letterSpacing: "0.12em",
+                margin: 0,
+                padding: 0,
+              }}
+            >
+              Verses
+            </p>
+          </>
+        )}
       </div>
     </div>
   );
