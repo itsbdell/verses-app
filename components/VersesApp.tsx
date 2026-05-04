@@ -96,6 +96,14 @@ export default function VersesApp() {
       <header className="border-b border-[#E8E2DA] px-6 py-3 flex-shrink-0">
         <div className="max-w-4xl mx-auto flex items-baseline justify-between gap-3">
           <div className="flex items-baseline gap-3">
+            <a
+              href="https://briandell.xyz"
+              className="text-xs text-[#8C7E6E] hover:text-[#2C2520] transition-colors"
+              aria-label="Back to briandell.xyz"
+            >
+              <span aria-hidden="true">←</span> briandell.xyz
+            </a>
+            <span className="text-[#D6CFC5]" aria-hidden="true">/</span>
             <h1
               className="text-lg tracking-widest uppercase"
               style={{ fontFamily: '"Spectral", Georgia, serif' }}
@@ -114,14 +122,6 @@ export default function VersesApp() {
               className="text-xs text-[#8C7E6E] hover:text-[#2C2520] transition-colors"
             >
               GitHub
-            </a>
-            <a
-              href="https://briandell.xyz"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-xs text-[#8C7E6E] hover:text-[#2C2520] transition-colors"
-            >
-              briandell.xyz
             </a>
             <span
               className="text-[10px] text-[#8C7E6E] tracking-wider border border-[rgba(77,82,234,0.2)] rounded px-1.5 py-0.5"
